@@ -291,7 +291,7 @@ section .title::after{
 }
 .services .serv-content .card i{
     font-size: 50px;
-    color: blue;
+    color: red;
     transition: color 0.3s ease;
 }
 .services .serv-content .card:hover i{
