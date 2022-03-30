@@ -88,7 +88,7 @@ section .title::after{
 }
 .navbar.sticky{
     padding: 15px 0;
-    background: blue;
+    background: rgb(242, 242, 252);
 }
 .navbar .max-width{
     display: flex;
@@ -101,7 +101,7 @@ section .title::after{
     font-weight: 600;
 }
 .navbar .logo a span{
-    color: blue;
+    color: red;
     transition: all 0.3s ease;
 }
 .navbar.sticky .logo a span{
@@ -193,7 +193,7 @@ section .title::after{
     margin: 5px 0;
 }
 .home .home-content .text-3 span{
-    color: blue;
+    color: red;
     font-weight: 500;
 }
 .home .home-content a{
