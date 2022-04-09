@@ -42,7 +42,7 @@ $(document).ready(function(){
     });
 
     var typed = new Typed(".typing-2", {
-        strings: ["a Student at Jamia Hamdard"],
+        strings: ["i am a Student at Jamia Hamdard"],
         typeSpeed: 100,
         backSpeed: 60,
         loop: true
