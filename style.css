@@ -165,7 +165,7 @@ section .title::after{
 /* home section styling */
 .home{
     display: flex;
-    background-color: rgb(224, 247, 248)  ;
+    background-color: rgb(236, 254, 255)  ;
     height: 100vh;
     color: rgb(0, 0, 0);
     min-height: 500px;
