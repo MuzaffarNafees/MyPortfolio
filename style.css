@@ -31,6 +31,36 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatCard {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.9;
+  }
 }
 
 img {
@@ -92,6 +122,7 @@ textarea {
   opacity: 0.5;
   pointer-events: none;
   z-index: 0;
+  animation: pulseGlow 7s ease-in-out infinite;
 }
 
 .glow-1 {
@@ -183,6 +214,7 @@ main,
 
 .hero-copy {
   width: 100%;
+  animation: fadeInUp 0.9s ease both;
 }
 
 .hero-copy h1 {
@@ -195,6 +227,7 @@ main,
   font-weight: 400;
   margin-top: 30px;
   color: var(--text);
+  text-shadow: 0 10px 30px rgba(26, 45, 42, 0.04);
 }
 
 .headline-line {
@@ -260,7 +293,8 @@ main,
 }
 
 .btn:hover {
-  transform: translateY(-2px);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 22px 34px rgba(46, 69, 61, 0.16);
 }
 
 .btn-primary {
@@ -289,6 +323,21 @@ main,
   border: 1px solid var(--line);
   border-radius: 18px;
   backdrop-filter: blur(6px);
+  animation: floatCard 5.2s ease-in-out infinite;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.mini-stats div:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 30px rgba(31, 51, 42, 0.08);
+}
+
+.mini-stats div:nth-child(2) {
+  animation-delay: 1s;
+}
+
+.mini-stats div:nth-child(3) {
+  animation-delay: 2s;
 }
 
 .mini-stats strong {
@@ -315,6 +364,14 @@ main,
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(245, 247, 242, 0.96));
   border: 1px solid rgba(31, 51, 42, 0.08);
   box-shadow: var(--shadow);
+  transform: perspective(1200px) rotateY(-6deg) rotateX(2deg);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  animation: floatCard 6.5s ease-in-out infinite;
+}
+
+.profile-card:hover {
+  transform: perspective(1200px) rotateY(0deg) rotateX(0deg) translateY(-10px);
+  box-shadow: 0 32px 70px rgba(31, 51, 42, 0.14);
 }
 
 .profile-image-wrap {
@@ -365,6 +422,29 @@ main,
   border: 1px solid rgba(31, 51, 42, 0.08);
   border-radius: 28px;
   box-shadow: var(--shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.about-card:hover,
+.info-card:hover,
+.contact-card:hover,
+.contact-form:hover,
+.ai-panel:hover,
+.quote-panel:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 22px 42px rgba(31, 51, 42, 0.11);
+  border-color: rgba(121, 151, 127, 0.28);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .about-card {
