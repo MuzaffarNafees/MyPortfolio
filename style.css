@@ -84,6 +84,19 @@ textarea {
   margin: 0 auto;
 }
 
+section,
+article,
+.container,
+.hero-copy,
+.hero-visual,
+.about-card,
+.info-card,
+.project-card,
+.contact-card,
+.contact-form {
+  min-width: 0;
+}
+
 .section {
   padding: 110px 0;
 }
@@ -199,6 +212,22 @@ main,
 
 .nav-toggle {
   display: none;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  height: 2px;
+  margin: 4px 0;
+  border-radius: 99px;
+  background: currentColor;
 }
 
 .hero {
@@ -754,6 +783,7 @@ main,
 .contact-item p,
 .contact-item a {
   color: var(--text);
+  overflow-wrap: anywhere;
 }
 
 .field-row {
@@ -873,7 +903,8 @@ main,
   .contact-grid,
   .ai-grid,
   .three-up,
-  .stack-layout {
+  .stack-layout,
+  .projects-grid {
     grid-template-columns: 1fr;
   }
 
@@ -893,6 +924,8 @@ main,
     background: rgba(255, 255, 255, 0.9);
     border-bottom: 1px solid var(--line);
     box-shadow: var(--shadow);
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
   }
 
   .nav-menu.is-open {
@@ -902,11 +935,60 @@ main,
   .hero {
     padding-top: 70px;
   }
+
+  .hero-visual {
+    margin-top: 10px;
+  }
 }
 
 @media (max-width: 640px) {
+  .container {
+    width: min(100% - 24px, 520px);
+  }
+
   .section {
-    padding: 80px 0;
+    padding: 72px 0;
+  }
+
+  .navbar {
+    min-height: 68px;
+  }
+
+  .brand {
+    font-size: 1.65rem;
+  }
+
+  .hero {
+    padding: 58px 0 64px;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(2.8rem, 14vw, 4.6rem);
+    line-height: 0.92;
+    letter-spacing: -0.065em;
+    margin-top: 22px;
+  }
+
+  .subtitle {
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+
+  .typewriter-wrap {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+    font-size: 0.76rem;
+    line-height: 1.4;
+  }
+
+  .section-heading {
+    margin-bottom: 34px;
+  }
+
+  .section-heading h2 {
+    font-size: clamp(2rem, 10vw, 3rem);
+    line-height: 1.05;
   }
 
   .mini-stats,
@@ -915,7 +997,37 @@ main,
   }
 
   .profile-image-wrap img {
-    height: 420px;
+    height: min(420px, 105vw);
+  }
+
+  .profile-card,
+  .about-card,
+  .info-card,
+  .project-card,
+  .ai-panel,
+  .quote-panel,
+  .contact-card,
+  .contact-form {
+    border-radius: 22px;
+  }
+
+  .profile-card {
+    padding: 12px;
+  }
+
+  .profile-image-wrap,
+  .profile-image-wrap img {
+    border-radius: 17px;
+  }
+
+  .profile-badges {
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .profile-badges span {
+    padding: 8px 10px;
+    font-size: 0.78rem;
   }
 
   .cta-row {
@@ -927,10 +1039,61 @@ main,
     width: 100%;
   }
 
+  .mini-stats {
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .mini-stats div {
+    padding: 14px 12px;
+  }
+
+  .mini-stats strong {
+    font-size: 1.15rem;
+  }
+
+  .mini-stats span {
+    font-size: 0.78rem;
+  }
+
+  .field-row {
+    gap: 0;
+  }
+
+  .contact-item {
+    gap: 10px;
+  }
+
+  .contact-item i {
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
+  }
+
+  .flow-block,
+  .multi-stack {
+    min-width: 0;
+    width: 100%;
+  }
+
   .footer-wrap {
     flex-direction: column;
     text-align: center;
     padding: 24px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 

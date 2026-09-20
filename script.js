@@ -5,13 +5,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (navToggle && navMenu) {
     navToggle.addEventListener("click", () => {
-      navMenu.classList.toggle("is-open");
+      const isOpen = navMenu.classList.toggle("is-open");
+      navToggle.setAttribute("aria-expanded", String(isOpen));
     });
   }
 
   navLinks.forEach((link) => {
     link.addEventListener("click", () => {
       navMenu?.classList.remove("is-open");
+      navToggle?.setAttribute("aria-expanded", "false");
     });
   });
 
