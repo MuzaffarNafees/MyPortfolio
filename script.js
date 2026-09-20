@@ -74,18 +74,95 @@ document.addEventListener("DOMContentLoaded", () => {
   const contactForm = document.querySelector(".contact-form");
 
   if (contactForm) {
+    const formStatus = document.getElementById("form-status");
+    const fields = {
+      name: document.getElementById("name"),
+      email: document.getElementById("email"),
+      subject: document.getElementById("subject"),
+      message: document.getElementById("message")
+    };
+
+    const setFieldState = (fieldName, message = "") => {
+      const field = fields[fieldName];
+      const wrapper = field?.closest(".field");
+      const errorNode = document.getElementById(`${fieldName}-error`);
+
+      if (wrapper) {
+        wrapper.classList.toggle("has-error", Boolean(message));
+      }
+
+      if (errorNode) {
+        errorNode.textContent = message;
+      }
+    };
+
+    const setStatus = (type, message) => {
+      if (!formStatus) return;
+      formStatus.textContent = message;
+      formStatus.classList.remove("error", "success", "visible");
+      if (message) {
+        formStatus.classList.add(type, "visible");
+      }
+    };
+
+    const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+    const validateField = (fieldName) => {
+      const field = fields[fieldName];
+      const value = field?.value.trim() || "";
+
+      if (fieldName === "name" && value.length < 2) {
+        setFieldState(fieldName, "Please enter your full name.");
+        return false;
+      }
+
+      if (fieldName === "email" && !isValidEmail(value)) {
+        setFieldState(fieldName, "Please enter a valid email address.");
+        return false;
+      }
+
+      if (fieldName === "subject" && value.length < 3) {
+        setFieldState(fieldName, "Subject must be at least 3 characters long.");
+        return false;
+      }
+
+      if (fieldName === "message" && value.length < 10) {
+        setFieldState(fieldName, "Message must be at least 10 characters long.");
+        return false;
+      }
+
+      setFieldState(fieldName, "");
+      return true;
+    };
+
+    Object.keys(fields).forEach((fieldName) => {
+      fields[fieldName]?.addEventListener("input", () => validateField(fieldName));
+      fields[fieldName]?.addEventListener("blur", () => validateField(fieldName));
+    });
+
     contactForm.addEventListener("submit", async (event) => {
       event.preventDefault();
 
-      const name = document.getElementById("name")?.value.trim();
-      const email = document.getElementById("email")?.value.trim();
-      const subject = document.getElementById("subject")?.value.trim();
-      const message = document.getElementById("message")?.value.trim();
-
-      if (!name || !email || !subject || !message) {
-        alert("Please fill in all the required information before sending your message.");
+      if (contactForm.dataset.submitting === "true") {
         return;
       }
+
+      let isValid = true;
+      Object.keys(fields).forEach((fieldName) => {
+        if (!validateField(fieldName)) {
+          isValid = false;
+        }
+      });
+
+      if (!isValid) {
+        setStatus("error", "Please fix the highlighted fields before sending your message.");
+        return;
+      }
+
+      const name = fields.name.value.trim();
+      const email = fields.email.value.trim();
+      const subject = fields.subject.value.trim();
+      const message = fields.message.value.trim();
 
       const button = contactForm.querySelector("button");
       if (!button) return;
@@ -93,6 +170,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const originalText = button.textContent;
       button.textContent = "Sending...";
       button.disabled = true;
+      contactForm.dataset.submitting = "true";
+      setStatus("", "");
 
       try {
         const response = await fetch("https://formsubmit.co/ajax/muzaffarnafees536@gmail.com", {
@@ -113,13 +192,15 @@ document.addEventListener("DOMContentLoaded", () => {
           throw new Error("Request failed");
         }
 
-        alert("Your message has been sent successfully.");
+        setStatus("success", "Your message has been sent successfully.");
         contactForm.reset();
+        Object.keys(fields).forEach((fieldName) => setFieldState(fieldName, ""));
       } catch (error) {
-        alert("Something went wrong while sending your message. Please try again.");
+        setStatus("error", "Something went wrong while sending your message. Please try again.");
       } finally {
         button.textContent = originalText;
         button.disabled = false;
+        contactForm.dataset.submitting = "false";
       }
     });
   }

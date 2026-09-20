@@ -349,28 +349,33 @@
               </div>
             </div>
 
-            <form class="contact-form">
+            <form class="contact-form" novalidate>
               <div class="field-row">
                 <div class="field">
                   <label for="name">Name</label>
-                  <input id="name" type="text" placeholder="Your name" required />
+                  <input id="name" type="text" placeholder="Your name" autocomplete="name" />
+                  <div class="error-message" id="name-error" aria-live="polite"></div>
                 </div>
                 <div class="field">
                   <label for="email">Email</label>
-                  <input id="email" type="email" placeholder="Your email" required />
+                  <input id="email" type="email" placeholder="Your email" autocomplete="email" />
+                  <div class="error-message" id="email-error" aria-live="polite"></div>
                 </div>
               </div>
 
               <div class="field">
                 <label for="subject">Subject</label>
-                <input id="subject" type="text" placeholder="Subject" required />
+                <input id="subject" type="text" placeholder="Subject" />
+                <div class="error-message" id="subject-error" aria-live="polite"></div>
               </div>
 
               <div class="field">
                 <label for="message">Message</label>
-                <textarea id="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+                <textarea id="message" rows="5" placeholder="Tell me about your project..."></textarea>
+                <div class="error-message" id="message-error" aria-live="polite"></div>
               </div>
 
+              <div class="status-message" id="form-status" aria-live="polite"></div>
               <button type="submit" class="btn btn-primary">Send Message</button>
             </form>
           </div>
