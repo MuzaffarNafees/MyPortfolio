@@ -74,19 +74,53 @@ document.addEventListener("DOMContentLoaded", () => {
   const contactForm = document.querySelector(".contact-form");
 
   if (contactForm) {
-    contactForm.addEventListener("submit", (event) => {
+    contactForm.addEventListener("submit", async (event) => {
       event.preventDefault();
+
+      const name = document.getElementById("name")?.value.trim();
+      const email = document.getElementById("email")?.value.trim();
+      const subject = document.getElementById("subject")?.value.trim();
+      const message = document.getElementById("message")?.value.trim();
+
+      if (!name || !email || !subject || !message) {
+        alert("Please fill in all the required information before sending your message.");
+        return;
+      }
+
       const button = contactForm.querySelector("button");
       if (!button) return;
+
       const originalText = button.textContent;
-      button.textContent = "Message Sent";
+      button.textContent = "Sending...";
       button.disabled = true;
 
-      setTimeout(() => {
+      try {
+        const response = await fetch("https://formsubmit.co/ajax/muzaffarnafees536@gmail.com", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            subject,
+            message
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error("Request failed");
+        }
+
+        alert("Your message has been sent successfully.");
+        contactForm.reset();
+      } catch (error) {
+        alert("Something went wrong while sending your message. Please try again.");
+      } finally {
         button.textContent = originalText;
         button.disabled = false;
-        contactForm.reset();
-      }, 1800);
+      }
     });
   }
 });
