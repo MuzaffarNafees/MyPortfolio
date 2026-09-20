@@ -21,11 +21,14 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="scroll-progress" aria-hidden="true"></div>
+    <div class="cursor-glow" aria-hidden="true"></div>
     <div class="bg-glow glow-1"></div>
     <div class="bg-glow glow-2"></div>
 
     <header class="site-header">
-      <nav class="navbar container">
+      <nav class="navbar container" aria-label="Primary navigation">
         <a href="#home" class="brand">Muzaffar<span>Nafees</span></a>
 
         <button class="nav-toggle" aria-label="Toggle navigation" aria-controls="primary-navigation" aria-expanded="false">
@@ -39,13 +42,14 @@
           <a href="#about">About</a>
           <a href="#expertise">Expertise</a>
           <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
           <a href="#ai-testing">AI Testing</a>
-          <a href="#contact">Contact</a>
+          <a href="contact.html">Contact</a>
         </div>
       </nav>
     </header>
 
-    <main>
+    <main id="main-content" tabindex="-1">
       <section class="hero" id="home">
         <div class="container hero-grid">
           <div class="hero-copy">
@@ -65,8 +69,8 @@
             </div>
 
             <div class="cta-row">
-              <a class="btn btn-primary" href="#contact">Let’s Connect</a>
-              <a class="btn btn-secondary" href="https://drive.google.com/file/d/1WR7tRD_U_mT2kk-6AhJ0XnzeF0-qjb17/view?usp=sharing" target="_blank" rel="noreferrer">Download CV</a>
+              <a class="btn btn-primary" href="contact.html">Let’s Connect</a>
+              <a class="btn btn-secondary" href="contact.html?request=resume">Request CV</a>
             </div>
 
             <div class="mini-stats">
@@ -88,7 +92,7 @@
           <div class="hero-visual">
             <div class="profile-card">
               <div class="profile-image-wrap">
-                <img src="muzaffarimg2.png" alt="Muzaffar Nafees portrait" />
+                <img src="muzaffarimg2.png" alt="Muzaffar Nafees portrait" width="450" height="520" fetchpriority="high" />
               </div>
               <div class="profile-badges">
                 <span><i class="fa-solid fa-vial"></i> Test Automation</span>
@@ -352,16 +356,17 @@
           <div class="section-heading">
             <p class="eyebrow">Automation architecture</p>
             <h2>Designing quality systems that scale with product complexity.</h2>
+            <p class="architecture-intro">Follow the signal from a readable requirement to a trusted release. Select a stage to see what happens there.</p>
           </div>
 
           <div class="architecture-flow">
-            <div class="flow-block">Test Cases</div>
+            <button class="flow-block architecture-step is-active" type="button" data-step="cases" aria-expanded="true">Test Cases</button>
             <div class="connector"><i class="fa-solid fa-arrow-down"></i></div>
-            <div class="flow-block">Cucumber / BDD</div>
+            <button class="flow-block architecture-step" type="button" data-step="bdd" aria-expanded="false">Cucumber / BDD</button>
             <div class="connector"><i class="fa-solid fa-arrow-down"></i></div>
-            <div class="flow-block">Step Definitions</div>
+            <button class="flow-block architecture-step" type="button" data-step="steps" aria-expanded="false">Step Definitions</button>
             <div class="connector"><i class="fa-solid fa-arrow-down"></i></div>
-            <div class="flow-block">Page / API Layer</div>
+            <button class="flow-block architecture-step" type="button" data-step="layers" aria-expanded="false">Page / API Layer</button>
             <div class="connector"><i class="fa-solid fa-arrow-down"></i></div>
             <div class="multi-stack">
               <span>Playwright</span>
@@ -369,10 +374,24 @@
               <span>Selenium</span>
             </div>
             <div class="connector"><i class="fa-solid fa-arrow-down"></i></div>
-            <div class="flow-block">Allure / Extent</div>
+            <button class="flow-block architecture-step" type="button" data-step="reporting" aria-expanded="false">Allure / Extent</button>
             <div class="connector"><i class="fa-solid fa-arrow-down"></i></div>
-            <div class="flow-block">GitHub Actions</div>
+            <button class="flow-block architecture-step" type="button" data-step="pipeline" aria-expanded="false">GitHub Actions</button>
           </div>
+
+          <div class="architecture-detail" aria-live="polite">
+            <div>
+              <span class="architecture-detail-label">Selected stage</span>
+              <h3 id="architecture-detail-title">Test Cases</h3>
+            </div>
+            <p id="architecture-detail-copy">Start with clear, risk-based scenarios that describe the behavior customers and teams actually depend on.</p>
+            <button class="architecture-play" type="button" aria-label="Play the automation architecture flow">
+              <i class="fa-solid fa-play" aria-hidden="true"></i>
+              <span>Play the flow</span>
+            </button>
+          </div>
+          <div class="architecture-progress" aria-hidden="true"><span></span></div>
+          <p class="architecture-status" id="architecture-status" role="status" aria-live="polite">Ready to trace the flow.</p>
         </div>
       </section>
 
@@ -412,29 +431,29 @@
               <div class="field-row">
                 <div class="field">
                   <label for="name">Name</label>
-                  <input id="name" type="text" placeholder="Your name" autocomplete="name" />
+                  <input id="name" type="text" placeholder="Your name" autocomplete="name" aria-describedby="name-error" />
                   <div class="error-message" id="name-error" aria-live="polite"></div>
                 </div>
                 <div class="field">
                   <label for="email">Email</label>
-                  <input id="email" type="email" placeholder="Your email" autocomplete="email" />
+                  <input id="email" type="email" placeholder="Your email" autocomplete="email" aria-describedby="email-error" />
                   <div class="error-message" id="email-error" aria-live="polite"></div>
                 </div>
               </div>
 
               <div class="field">
                 <label for="subject">Subject</label>
-                <input id="subject" type="text" placeholder="Subject" />
+                <input id="subject" type="text" placeholder="Subject" aria-describedby="subject-error" />
                 <div class="error-message" id="subject-error" aria-live="polite"></div>
               </div>
 
               <div class="field">
                 <label for="message">Message</label>
-                <textarea id="message" rows="5" placeholder="Tell me about your project..."></textarea>
+                <textarea id="message" rows="5" placeholder="Tell me about your project..." aria-describedby="message-error"></textarea>
                 <div class="error-message" id="message-error" aria-live="polite"></div>
               </div>
 
-              <div class="status-message" id="form-status" aria-live="polite"></div>
+              <div class="status-message" id="form-status" role="status" aria-live="polite"></div>
               <button type="submit" class="btn btn-primary">Send Message</button>
             </form>
           </div>
