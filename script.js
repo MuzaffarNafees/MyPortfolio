@@ -88,6 +88,26 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (!prefersReducedMotion) {
+    document.querySelectorAll('a[href*="contact.html"]').forEach((link) => {
+      link.addEventListener("click", (event) => {
+        if (event.defaultPrevented || link.target === "_blank") return;
+
+        event.preventDefault();
+        const transition = document.createElement("div");
+        transition.className = "page-transition";
+        transition.innerHTML = `
+          <p class="page-transition-brand" aria-hidden="true">Muzaffar<span>Nafees</span></p>
+          <div class="page-transition-mark" aria-hidden="true"><span></span></div>
+        `;
+        document.body.appendChild(transition);
+        document.body.classList.add("is-leaving");
+
+        window.setTimeout(() => {
+          window.location.href = link.href;
+        }, 520);
+      });
+    });
+
     document.querySelectorAll(".btn").forEach((button) => {
       button.addEventListener("click", (event) => {
         const rect = button.getBoundingClientRect();
