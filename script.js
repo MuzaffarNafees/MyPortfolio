@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (!prefersReducedMotion) {
-    document.querySelectorAll('a[href*="contact.html"]').forEach((link) => {
+    document.querySelectorAll('a[href*="contact.html"]:not(.no-click-animation)').forEach((link) => {
       link.addEventListener("click", (event) => {
         if (event.defaultPrevented || link.target === "_blank") return;
 
@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    document.querySelectorAll(".btn").forEach((button) => {
+    document.querySelectorAll(".btn:not(.no-click-animation)").forEach((button) => {
       button.addEventListener("click", (event) => {
         const rect = button.getBoundingClientRect();
         const ripple = document.createElement("span");
